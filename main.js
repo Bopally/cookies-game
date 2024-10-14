@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 class Obstacle {
-  constructor() {
+  constructor(board) {
     this.width = 50;
     this.height = 50;
     this.positionX = Math.floor(
@@ -90,20 +90,45 @@ class Obstacle {
   }
 }
 
+// Function to check for collision
+function isColliding(player, obstacle) {
+  return !(
+    player.positionX > obstacle.positionX + obstacle.width ||
+    player.positionX + player.width < obstacle.positionX ||
+    player.positionY > obstacle.positionY + obstacle.height ||
+    player.positionY + player.height < obstacle.positionY
+  );
+}
+
+// Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
+  const player = new Player();
   const obstacleArr = [];
+  // Initialization of Counter's life
+  let lifeCounter = 3;
 
   setInterval(() => {
     const newObstacle = new Obstacle(board);
     obstacleArr.push(newObstacle);
-    console.log("new obstacle");
   }, 3000);
 
   setInterval(() => {
     obstacleArr.forEach((obstacle, index) => {
       obstacle.moveDown();
-      if (obstacle.positionY <= -20) {
+
+      // Check for collision
+      if (isColliding(player, obstacle)) {
+        console.log("Collision detected!");
+        lifeCounter--;
+        obstacleArr.splice(index, 1);
+        obstacle.domElement.remove();
+
+        if (lifeCounter === 0) {
+          console.log("Game Over");
+        }
+      }
+      if (obstacle.positionY <= -50) {
         obstacle.domElement.remove();
       }
     });
