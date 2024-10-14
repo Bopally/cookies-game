@@ -56,3 +56,58 @@ class Player {
 document.addEventListener("DOMContentLoaded", () => {
   const player = new Player();
 });
+
+class Obstacle {
+  constructor() {
+    this.width = 50;
+    this.height = 50;
+    this.positionX = Math.floor(
+      Math.random() * (board.offsetWidth - this.width)
+    );
+    this.positionY = 750;
+    this.domElement = null;
+
+    this.createDomElement();
+  }
+
+  createDomElement() {
+    const board = document.getElementById("board");
+
+    this.domElement = document.createElement("div");
+    this.domElement.className = "obstacle";
+    this.domElement.style.width = this.width + "px";
+    this.domElement.style.height = this.height + "px";
+    this.domElement.style.left = this.positionX + "px";
+    this.domElement.style.bottom = this.positionY + "px";
+    this.domElement.style.position = "absolute";
+
+    board.appendChild(this.domElement);
+  }
+  // Movments of Obstacle
+  moveDown() {
+    this.positionY -= 5;
+    this.domElement.style.bottom = this.positionY + "px";
+  }
+}
+
+function startGame() {
+  const board = document.getElementById("board");
+  const obstacleArr = [];
+
+  setInterval(() => {
+    const newObstacle = new Obstacle(board);
+    obstacleArr.push(newObstacle);
+    console.log("new obstacle");
+  }, 3000);
+
+  setInterval(() => {
+    obstacleArr.forEach((obstacle, index) => {
+      obstacle.moveDown();
+      if (obstacle.positionY <= -20) {
+        obstacle.domElement.remove();
+      }
+    });
+  }, 40);
+}
+
+document.addEventListener("DOMContentLoaded", startGame);
