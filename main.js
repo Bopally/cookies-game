@@ -1,8 +1,8 @@
 class Player {
   constructor() {
-    this.width = 10;
-    this.height = 5;
-    this.positionX = 20;
+    this.width = 50;
+    this.height = 50;
+    this.positionX = 0;
     this.positionY = 0;
     this.domElement = null;
 
@@ -10,29 +10,34 @@ class Player {
     this.addKeyboardControls();
   }
   createDomElement() {
+    const board = document.getElementById("board");
+    this.positionX = (board.offsetWidth - this.width) / 2;
+
     this.domElement = document.createElement("div");
     this.domElement.id = "player";
-    this.domElement.style.width = this.width + "vw";
-    this.domElement.style.height = this.height + "vh";
-    this.domElement.style.left = this.positionX + "vw";
-    this.domElement.style.bottom = this.positionY + "vh";
+    this.domElement.style.width = this.width + "px";
+    this.domElement.style.height = this.height + "px";
+    this.domElement.style.left = this.positionX + "px";
+    this.domElement.style.bottom = this.positionY + "px";
+    this.domElement.style.borderRadius = "50%";
+    this.domElement.style.position = "absolute"; // set up the player position based on the board
 
     //Append the dom
-    const board = document.getElementById("board");
     board.appendChild(this.domElement);
   }
 
   // Movments of Player
   moveRight() {
-    if (this.positionX < 100 - this.width) {
-      this.positionX++;
-      this.domElement.style.left = this.positionX + "vw";
+    const boardWidth = document.getElementById("board").offsetWidth;
+    if (this.positionX + this.width < boardWidth) {
+      this.positionX = Math.min(this.positionX + 20, boardWidth - this.width);
+      this.domElement.style.left = this.positionX + "px";
     }
   }
   moveLeft() {
     if (this.positionX > 0) {
-      this.positionX--;
-      this.domElement.style.left = this.positionX + "vw";
+      this.positionX = Math.max(this.positionX - 20, 0);
+      this.domElement.style.left = this.positionX + "px";
     }
   }
 
