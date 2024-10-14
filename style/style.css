@@ -24,3 +24,11 @@ body {
   background-color: rgb(229, 32, 32);
   position: absolute;
 }
+
+#life-counter {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  color: white;
+}

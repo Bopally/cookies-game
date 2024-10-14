@@ -105,8 +105,12 @@ function startGame() {
   const board = document.getElementById("board");
   const player = new Player();
   const obstacleArr = [];
+
   // Initialization of Counter's life
   let lifeCounter = 3;
+
+  const lifeCounterElement = document.getElementById("life-counter");
+  lifeCounterElement.textContent = `Lifes : ${lifeCounter}`;
 
   setInterval(() => {
     const newObstacle = new Obstacle(board);
@@ -123,6 +127,8 @@ function startGame() {
         lifeCounter--;
         obstacleArr.splice(index, 1);
         obstacle.domElement.remove();
+
+        lifeCounterElement.textContent = `Life : ${lifeCounter}`;
 
         if (lifeCounter === 0) {
           console.log("Game Over");
