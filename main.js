@@ -52,11 +52,6 @@ class Player {
   }
 }
 
-//Event Listener for our Dom Content
-document.addEventListener("DOMContentLoaded", () => {
-  const player = new Player();
-});
-
 class Obstacle {
   constructor(board) {
     this.width = 50;
@@ -110,14 +105,19 @@ function startGame() {
   let lifeCounter = 3;
 
   const lifeCounterElement = document.getElementById("life-counter");
-  lifeCounterElement.textContent = `Lifes : ${lifeCounter}`;
+  lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
-  setInterval(() => {
+  const gameOverMessage = document.getElementById("game-over-message");
+  const startAgainButton = document.getElementById("start-again-button");
+
+  gameOverMessage.style.display = "none";
+
+  const obstacleInterval = setInterval(() => {
     const newObstacle = new Obstacle(board);
     obstacleArr.push(newObstacle);
   }, 3000);
 
-  setInterval(() => {
+  const gameLoopInterval = setInterval(() => {
     obstacleArr.forEach((obstacle, index) => {
       obstacle.moveDown();
 
@@ -128,10 +128,13 @@ function startGame() {
         obstacleArr.splice(index, 1);
         obstacle.domElement.remove();
 
-        lifeCounterElement.textContent = `Life : ${lifeCounter}`;
+        lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
         if (lifeCounter === 0) {
           console.log("Game Over");
+          gameOverMessage.style.display = "block";
+          clearInterval(obstacleInterval);
+          clearInterval(gameLoopInterval);
         }
       }
       if (obstacle.positionY <= -50) {
@@ -139,6 +142,18 @@ function startGame() {
       }
     });
   }, 40);
+
+  startAgainButton.onclick = function () {
+    gameOverMessage.style.display = "none";
+    lifeCounter = 3;
+    lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
+    obstacleArr.forEach((obstacle, index) => {
+      obstacle.domElement.remove();
+    });
+    console.log(player, player.domElement);
+    player.domElement.remove();
+    startGame();
+  };
 }
 
 document.addEventListener("DOMContentLoaded", startGame);
