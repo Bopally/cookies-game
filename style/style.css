@@ -1,6 +1,8 @@
 /* Main Style */
 body {
-  background-color: rgb(220, 169, 160);
+  background-image: url(../Images/kitchen-backgroung.jpg);
+  background-size: auto;
+  background-position: center;
   height: 100%;
   margin: 0;
   display: flex;
@@ -17,13 +19,16 @@ body {
 }
 
 #player {
-  background-color: rgb(199, 126, 59);
+  background-image: url("../Images/cookie-player.png");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
   position: absolute;
 }
 
 .obstacle {
-  background-color: rgb(229, 32, 32);
-  position: absolute;
+  background-image: url("../Images/feu.png");
+  background-size: cover;
 }
 
 #life-counter {
@@ -54,7 +59,6 @@ body {
   border-radius: 5px;
   text-align: center;
 }
-
 /* Instructions Style */
 #instructions {
   background: white;
@@ -84,23 +88,26 @@ body {
   position: absolute;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
 }
 
 .ingredient.flour {
-  background-color: #ece8e1;
+  background-image: url("../Images/flour.png");
+  background-size: cover;
 }
 
 .ingredient.milk {
-  background-color: #cddaff;
+  background-image: url("../Images/milk.png");
+  background-size: cover;
 }
 
 .ingredient.egg {
-  background-color: #f3e86f;
+  background-image: url("../Images/egg.png");
+  background-size: cover;
 }
 
 .ingredient.chocolate {
-  background-color: #a35015;
+  background-image: url("../Images/chocolate.png");
+  background-size: cover;
 }
 
 /* End Game Style */
