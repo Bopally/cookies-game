@@ -95,11 +95,51 @@ function isColliding(player, obstacle) {
   );
 }
 
+// Ingredients for the recipe
+
+const ingredientTypes = ["flour", "milk", "egg", "chocolate"];
+
+class Ingredient {
+  constructor(board) {
+    this.width = 50;
+    this.height = 50;
+    this.positionX = Math.floor(
+      Math.random() * (board.offsetWidth - this.width)
+    );
+    this.positionY = board.offsetHeight;
+    this.domElement = null;
+    this.type =
+      ingredientTypes[Math.floor(Math.random() * ingredientTypes.length)];
+    console.log(this.type);
+    this.createDomElement();
+  }
+
+  createDomElement() {
+    const board = document.getElementById("board");
+
+    this.domElement = document.createElement("div");
+    this.domElement.className = "ingredient " + this.type;
+    this.domElement.style.width = this.width + "px";
+    this.domElement.style.height = this.height + "px";
+    this.domElement.style.left = this.positionX + "px";
+    this.domElement.style.bottom = this.positionY + "px";
+    this.domElement.style.position = "absolute";
+
+    board.appendChild(this.domElement);
+  }
+
+  moveDown() {
+    this.positionY -= 5;
+    this.domElement.style.bottom = this.positionY + "px";
+  }
+}
+
 // Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
   const player = new Player();
   const obstacleArr = [];
+  const ingredientArr = [];
 
   // Initialization of Counter's life
   let lifeCounter = 3;
@@ -112,6 +152,7 @@ function startGame() {
 
   gameOverMessage.style.display = "none";
 
+  // Obstacle: Interval & Loop
   const obstacleInterval = setInterval(() => {
     const newObstacle = new Obstacle(board);
     obstacleArr.push(newObstacle);
@@ -141,8 +182,27 @@ function startGame() {
         obstacle.domElement.remove();
       }
     });
-  }, 40);
 
+    // Ingredients: Movments
+    ingredientArr.forEach((ingredient, index) => {
+      ingredient.moveDown();
+      if (isColliding(player, ingredient)) {
+        //console.log(`Collected: ${ingredient.type}`);
+        ingredient.domElement.remove();
+        ingredientArr.splice(index, 1);
+      }
+      if (ingredient.positionY <= -50) {
+        ingredient.domElement.remove();
+      }
+    });
+  }, 40);
+  // Ingredients : Interval
+  const ingredientInterval = setInterval(() => {
+    const newIngredient = new Ingredient(board);
+    ingredientArr.push(newIngredient);
+  }, 3000);
+
+  // Button Start again
   startAgainButton.onclick = function () {
     gameOverMessage.style.display = "none";
     lifeCounter = 3;
@@ -150,7 +210,9 @@ function startGame() {
     obstacleArr.forEach((obstacle, index) => {
       obstacle.domElement.remove();
     });
-    console.log(player, player.domElement);
+    ingredientArr.forEach((ingredient, index) => {
+      ingredient.domElement.remove();
+    });
     player.domElement.remove();
     startGame();
   };
