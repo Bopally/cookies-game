@@ -1,3 +1,4 @@
+/* Main Style */
 body {
   background-color: rgb(220, 169, 160);
   height: 100%;
@@ -41,6 +42,55 @@ body {
   color: white;
 }
 
+/* Instructions Style */
+#instructions {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#instructions-message {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 100px;
+  border-radius: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ingredients */
+.ingredient {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.ingredient.flour {
+  background-color: #ece8e1;
+}
+
+.ingredient.milk {
+  background-color: #cddaff;
+}
+
+.ingredient.egg {
+  background-color: #f3e86f;
+}
+
+.ingredient.chocolate {
+  background-color: #a35015;
+}
+
+/* End Game Style */
 #game-over-message {
   display: none;
   position: fixed;
@@ -74,27 +124,4 @@ body {
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
-}
-
-.ingredient {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-.ingredient.flour {
-  background-color: #ece8e1;
-}
-
-.ingredient.milk {
-  background-color: #cddaff;
-}
-
-.ingredient.egg {
-  background-color: #f3e86f;
-}
-
-.ingredient.chocolate {
-  background-color: #a35015;
 }

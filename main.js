@@ -80,7 +80,7 @@ class Obstacle {
   }
   // Movments of Obstacle
   moveDown() {
-    this.positionY -= 5;
+    this.positionY -= 10;
     this.domElement.style.bottom = this.positionY + "px";
   }
 }
@@ -121,7 +121,7 @@ class Ingredient {
     this.domElement = null;
     this.type =
       ingredientTypes[Math.floor(Math.random() * ingredientTypes.length)];
-    console.log(this.type);
+    //console.log(this.type);
     this.createDomElement();
   }
 
@@ -159,7 +159,6 @@ function updateRecipeDisplay() {
 }
 
 // Function to check the recipe
-
 function isRecipeComplete() {
   for (let ingredient in recipe) {
     if (collectedIngredients[ingredient] < recipe[ingredient]) {
@@ -169,10 +168,25 @@ function isRecipeComplete() {
   return true;
 }
 
+// Introduction & Start the Game
+document.addEventListener("DOMContentLoaded", () => {
+  const instructionsMessage = document.getElementById("instructions-message");
+  const startGameButton = document.getElementById("start-game-button");
+
+  // Display instructions initially
+  instructionsMessage.style.display = "block";
+
+  // Set up event listener for the "Start Game" button
+  startGameButton.onclick = function () {
+    instructionsMessage.style.display = "none";
+    startGame();
+  };
+});
+
 // Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
-  const player = new Player();
+  let player = new Player();
   const obstacleArr = [];
   const ingredientArr = [];
 
@@ -190,11 +204,17 @@ function startGame() {
   victoryMessage.style.display = "none";
   updateRecipeDisplay();
 
-  // Obstacle: Interval & Loop
+  // Obstacle: Interval
   const obstacleInterval = setInterval(() => {
     const newObstacle = new Obstacle(board);
     obstacleArr.push(newObstacle);
-  }, 3000);
+  }, 500);
+
+  // Ingredients : Interval
+  const ingredientInterval = setInterval(() => {
+    const newIngredient = new Ingredient(board);
+    ingredientArr.push(newIngredient);
+  }, 1000);
 
   const gameLoopInterval = setInterval(() => {
     obstacleArr.forEach((obstacle, index) => {
@@ -212,9 +232,10 @@ function startGame() {
         if (lifeCounter === 0) {
           console.log("Game Over");
           gameOverMessage.style.display = "block";
-          clearInterval(obstacleInterval);
-          clearInterval(gameLoopInterval);
-          clearInterval(ingredientInterval);
+          clearIntervals();
+          //clearInterval(obstacleInterval);
+          //clearInterval(gameLoopInterval);
+          //clearInterval(ingredientInterval);
         }
       }
       if (obstacle.positionY <= -50) {
@@ -230,28 +251,31 @@ function startGame() {
         collectedIngredients[ingredient.type]++;
         ingredient.domElement.remove();
         ingredientArr.splice(index, 1);
-
         updateRecipeDisplay();
 
         if (isRecipeComplete()) {
           console.log("Recipe Complete! You win!");
           victoryMessage.style.display = "block";
-          clearInterval(obstacleInterval);
-          clearInterval(gameLoopInterval);
-          clearInterval(ingredientInterval);
+          clearIntervals();
+
+          //clearInterval(obstacleInterval);
+          //clearInterval(gameLoopInterval);
+          //clearInterval(ingredientInterval);
         }
       }
       if (ingredient.positionY <= -50) {
         ingredient.domElement.remove();
+        ingredientArr.splice(index, 1);
       }
     });
   }, 40);
 
-  // Ingredients : Interval
-  const ingredientInterval = setInterval(() => {
-    const newIngredient = new Ingredient(board);
-    ingredientArr.push(newIngredient);
-  }, 3000);
+  // Function to Clear all Intervals
+  function clearIntervals() {
+    clearInterval(obstacleInterval);
+    clearInterval(ingredientInterval);
+    clearInterval(gameLoopInterval);
+  }
 
   // Button Start again
   function resetGame() {
@@ -274,14 +298,15 @@ function startGame() {
       collectedIngredients[ingredient] = 0;
     }
 
+    // Clear all intervals, remove all dom elements
     player.domElement.remove();
+    player = null;
+
+    clearIntervals();
     startGame();
   }
 
   document.querySelectorAll(".start-again-button").forEach((button) => {
-    button.onclick = function () {
-      resetGame();
-    };
+    button.onclick = resetGame;
   });
 }
-document.addEventListener("DOMContentLoaded", startGame);
