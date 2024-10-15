@@ -233,9 +233,6 @@ function startGame() {
           console.log("Game Over");
           gameOverMessage.style.display = "block";
           clearIntervals();
-          //clearInterval(obstacleInterval);
-          //clearInterval(gameLoopInterval);
-          //clearInterval(ingredientInterval);
         }
       }
       if (obstacle.positionY <= -50) {
@@ -248,19 +245,30 @@ function startGame() {
       ingredient.moveDown();
 
       if (isColliding(player, ingredient)) {
-        collectedIngredients[ingredient.type]++;
         ingredient.domElement.remove();
         ingredientArr.splice(index, 1);
-        updateRecipeDisplay();
+
+        // Check if the ingredient is needed
+        if (collectedIngredients[ingredient.type] < recipe[ingredient.type]) {
+          collectedIngredients[ingredient.type]++;
+          updateRecipeDisplay();
+        } else {
+          // If the ingredient is not needed lose one life
+          console.log(`Unnecessary ingredient collected: ${ingredient.type}`);
+          lifeCounter--;
+          lifeCounterElement.textContent = `Lives: ${lifeCounter}`;
+        }
+
+        if (lifeCounter === 0) {
+          console.log("Game Over");
+          gameOverMessage.style.display = "block";
+          clearIntervals();
+        }
 
         if (isRecipeComplete()) {
           console.log("Recipe Complete! You win!");
           victoryMessage.style.display = "block";
           clearIntervals();
-
-          //clearInterval(obstacleInterval);
-          //clearInterval(gameLoopInterval);
-          //clearInterval(ingredientInterval);
         }
       }
       if (ingredient.positionY <= -50) {
