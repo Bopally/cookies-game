@@ -42,6 +42,19 @@ body {
   color: white;
 }
 
+#time-counter {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
 /* Instructions Style */
 #instructions {
   background: white;

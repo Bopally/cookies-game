@@ -189,6 +189,7 @@ function startGame() {
   let player = new Player();
   const obstacleArr = [];
   const ingredientArr = [];
+  let timeLeft = 40;
 
   // Initialization of the Shield
 
@@ -203,6 +204,9 @@ function startGame() {
   const lifeCounterElement = document.getElementById("life-counter");
   lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
+  const timeCounterElement = document.getElementById("time-counter");
+  timeCounterElement.textContent = `Time: ${timeLeft}`;
+
   const gameOverMessage = document.getElementById("game-over-message");
   const victoryMessage = document.getElementById("victory-message");
   const startAgainButton = document.getElementById("start-again-button");
@@ -210,6 +214,17 @@ function startGame() {
   gameOverMessage.style.display = "none";
   victoryMessage.style.display = "none";
   updateRecipeDisplay();
+
+  // Countdown timer
+  const countdownInterval = setInterval(() => {
+    timeLeft--;
+    timeCounterElement.textContent = `Time: ${timeLeft}`;
+    if (timeLeft <= 0) {
+      console.log("Time's up!");
+      gameOverMessage.style.display = "block";
+      clearIntervals();
+    }
+  }, 1000);
 
   // Activate shield on space bar press, if not recharging
   document.addEventListener("keydown", (e) => {
@@ -312,14 +327,17 @@ function startGame() {
     clearInterval(obstacleInterval);
     clearInterval(ingredientInterval);
     clearInterval(gameLoopInterval);
+    clearInterval(countdownInterval);
   }
 
   // Button Start again
   function resetGame() {
     gameOverMessage.style.display = "none";
     victoryMessage.style.display = "none";
+    timeLeft = 40;
     lifeCounter = 3;
     lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
+    timeCounterElement.textContent = `Time: ${timeLeft}`;
 
     obstacleArr.forEach((obstacle, index) => {
       obstacle.domElement.remove();
