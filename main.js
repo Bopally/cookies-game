@@ -190,7 +190,14 @@ function startGame() {
   const obstacleArr = [];
   const ingredientArr = [];
 
-  // Initialization of Counter's life
+  // Initialization of the Shield
+
+  let shieldActive = false;
+
+  // Initialization of the Shield recharge status
+  let shieldRecharge = false;
+
+  // Initialization of the Counter's life
   let lifeCounter = 3;
 
   const lifeCounterElement = document.getElementById("life-counter");
@@ -203,6 +210,28 @@ function startGame() {
   gameOverMessage.style.display = "none";
   victoryMessage.style.display = "none";
   updateRecipeDisplay();
+
+  // Activate shield on space bar press, if not recharging
+  document.addEventListener("keydown", (e) => {
+    if (e.key === " " && !shieldRecharge) {
+      // Check for space bar and recharge status
+      if (!shieldActive) {
+        shieldActive = true;
+        shieldRecharge = true;
+        console.log("Shield activated!");
+        setTimeout(() => {
+          shieldActive = false;
+          console.log("Shield deactivated!");
+
+          // Start recharge timer
+          setTimeout(() => {
+            shieldRecharge = false;
+            console.log("Shield recharged!");
+          }, 10000); // 10 second recharge time
+        }, 3000); // Desactivate shield after 3 seconds
+      }
+    }
+  });
 
   // Obstacle: Interval
   const obstacleInterval = setInterval(() => {
@@ -221,11 +250,11 @@ function startGame() {
       obstacle.moveDown();
 
       // Check for collision
-      if (isColliding(player, obstacle)) {
+      if (!shieldActive && isColliding(player, obstacle)) {
         console.log("Collision detected!");
         lifeCounter--;
-        obstacleArr.splice(index, 1);
         obstacle.domElement.remove();
+        obstacleArr.splice(index, 1);
 
         lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
