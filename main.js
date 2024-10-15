@@ -95,9 +95,20 @@ function isColliding(player, obstacle) {
   );
 }
 
-// Ingredients for the recipe
-
+// Ingredients & Recipe
 const ingredientTypes = ["flour", "milk", "egg", "chocolate"];
+const recipe = {
+  flour: 1,
+  milk: 1,
+  egg: 2,
+  chocolate: 1,
+};
+const collectedIngredients = {
+  flour: 0,
+  milk: 0,
+  egg: 0,
+  chocolate: 0,
+};
 
 class Ingredient {
   constructor(board) {
@@ -134,6 +145,30 @@ class Ingredient {
   }
 }
 
+// Function to update the recipe display
+function updateRecipeDisplay() {
+  const recipeList = document.getElementById("recipe-list");
+  recipeList.innerHTML = ""; // Clear the list
+
+  for (let ingredient in recipe) {
+    const remaining = recipe[ingredient] - collectedIngredients[ingredient];
+    const listItem = document.createElement("li");
+    listItem.textContent = `${ingredient}: ${Math.max(0, remaining)} left`;
+    recipeList.appendChild(listItem);
+  }
+}
+
+// Function to check the recipe
+
+function isRecipeComplete() {
+  for (let ingredient in recipe) {
+    if (collectedIngredients[ingredient] < recipe[ingredient]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
@@ -148,9 +183,12 @@ function startGame() {
   lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
   const gameOverMessage = document.getElementById("game-over-message");
+  const victoryMessage = document.getElementById("victory-message");
   const startAgainButton = document.getElementById("start-again-button");
 
   gameOverMessage.style.display = "none";
+  victoryMessage.style.display = "none";
+  updateRecipeDisplay();
 
   // Obstacle: Interval & Loop
   const obstacleInterval = setInterval(() => {
@@ -176,6 +214,7 @@ function startGame() {
           gameOverMessage.style.display = "block";
           clearInterval(obstacleInterval);
           clearInterval(gameLoopInterval);
+          clearInterval(ingredientInterval);
         }
       }
       if (obstacle.positionY <= -50) {
@@ -183,19 +222,31 @@ function startGame() {
       }
     });
 
-    // Ingredients: Movments
+    // Ingredients collected: update the recipe
     ingredientArr.forEach((ingredient, index) => {
       ingredient.moveDown();
+
       if (isColliding(player, ingredient)) {
-        //console.log(`Collected: ${ingredient.type}`);
+        collectedIngredients[ingredient.type]++;
         ingredient.domElement.remove();
         ingredientArr.splice(index, 1);
+
+        updateRecipeDisplay();
+
+        if (isRecipeComplete()) {
+          console.log("Recipe Complete! You win!");
+          victoryMessage.style.display = "block";
+          clearInterval(obstacleInterval);
+          clearInterval(gameLoopInterval);
+          clearInterval(ingredientInterval);
+        }
       }
       if (ingredient.positionY <= -50) {
         ingredient.domElement.remove();
       }
     });
   }, 40);
+
   // Ingredients : Interval
   const ingredientInterval = setInterval(() => {
     const newIngredient = new Ingredient(board);
@@ -203,19 +254,34 @@ function startGame() {
   }, 3000);
 
   // Button Start again
-  startAgainButton.onclick = function () {
+  function resetGame() {
     gameOverMessage.style.display = "none";
+    victoryMessage.style.display = "none";
     lifeCounter = 3;
     lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
+
     obstacleArr.forEach((obstacle, index) => {
       obstacle.domElement.remove();
     });
+    obstacleArr.length = 0;
+
     ingredientArr.forEach((ingredient, index) => {
       ingredient.domElement.remove();
     });
+    ingredientArr.length = 0;
+
+    for (let ingredient in collectedIngredients) {
+      collectedIngredients[ingredient] = 0;
+    }
+
     player.domElement.remove();
     startGame();
-  };
-}
+  }
 
+  document.querySelectorAll(".start-again-button").forEach((button) => {
+    button.onclick = function () {
+      resetGame();
+    };
+  });
+}
 document.addEventListener("DOMContentLoaded", startGame);

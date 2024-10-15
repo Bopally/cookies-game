@@ -33,6 +33,14 @@ body {
   color: white;
 }
 
+#recipe-display {
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  font-size: 20px;
+  color: white;
+}
+
 #game-over-message {
   display: none;
   position: fixed;
@@ -43,6 +51,20 @@ body {
   color: white;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#victory-message {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  background-color: rgba(231, 209, 101, 0.8);
   padding: 20px;
   border-radius: 10px;
 }
