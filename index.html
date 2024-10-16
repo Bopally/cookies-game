@@ -16,14 +16,35 @@
         <img id="shield-icon" src="./Images/shield.png" alt="Shield" />
         <span id="shield-text">Shield: Available</span>
     </div>
+
+    <!-- Left side Screen -->
     <div id="timer">
       <img id="timer-icon" src="./Images/timer.png" alt="Timer" /> 
       <span id="time-text">Time: </span>
       <span id="timer-counter">40</span> 
     </div>
-  
-    <div id="recipe-display"><ul id="recipe-list"></ul></div>
 
+
+      <!-- Recipe-->
+    <div id="recipe-display">
+      <p id="recipe-instructions">List of Ingredients:</p>
+      <ul id="recipe-list">
+        <li class="ingredient-recipe" data-ingredient="flour">
+          <img src="../Images/flour.png" alt="Flour" class="ingredient-img" />
+        </li>
+        <li class="ingredient-recipe" data-ingredient="milk">
+          <img src="../Images/milk.png" alt="Milk" class="ingredient-img" />
+        </li>
+        <li class="ingredient-recipe" data-ingredient="egg">
+          <img src="../Images/egg.png" alt="Egg" class="ingredient-img" />
+        </li>
+        <li class="ingredient-recipe" data-ingredient="chocolate">
+          <img src="../Images/chocolate.png" alt="Chocolate" class="ingredient-img" />
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Instruction How to Play -->
     <div id="instructions-message">
       <h1>How to Play the Cookie Game</h1>
       <p>
@@ -43,11 +64,14 @@
       <button id="start-game-button">Start Game</button>
     </div>
 
+
+    <!-- Game Over -->
     <div id="game-over-message">
       Game Over
       <button class="start-again-button">Start Again</button>
     </div>
 
+    <!-- Victory -->
     <div id="victory-message">
       You Win!
       <button class="start-again-button">Start Again</button>

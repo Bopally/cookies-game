@@ -206,7 +206,20 @@ class Ingredient {
 // Function to update the recipe display
 function updateRecipeDisplay() {
   const recipeList = document.getElementById("recipe-list");
-  recipeList.innerHTML = ""; // Clear the list
+
+  recipeList.querySelectorAll(".ingredient-recipe").forEach((item) => {
+    const ingredientType = item.getAttribute("data-ingredient");
+    const imgElement = item.querySelector(".ingredient-img");
+
+    if (collectedIngredients[ingredientType] >= recipe[ingredientType]) {
+      imgElement.classList.add("collected");
+    } else {
+      imgElement.classList.remove("collected");
+    }
+  });
+}
+
+/*recipeList.innerHTML = ""; // Clear the list
 
   for (let ingredient in recipe) {
     const remaining = recipe[ingredient] - collectedIngredients[ingredient];
@@ -214,8 +227,33 @@ function updateRecipeDisplay() {
     listItem.textContent = `${ingredient}: ${Math.max(0, remaining)} left`;
     recipeList.appendChild(listItem);
   }
-}
+}*/
 
+function collectIngredient(ingredient) {
+  ingredient.domElement.remove();
+  ingredientArr.splice(index, 1);
+
+  if (collectedIngredients[ingredient.type] < recipe[ingredient.type]) {
+    collectedIngredients[ingredient.type]++;
+    updateRecipeDisplay();
+  } else {
+    console.log(`Unnecessary ingredient collected: ${ingredient.type}`);
+    lifeCounter--;
+    updateHearts(lifeCounter);
+  }
+
+  if (lifeCounter === 0) {
+    console.log("Game Over");
+    gameOverMessage.style.display = "block";
+    clearIntervals();
+  }
+
+  if (isRecipeComplete()) {
+    console.log("Recipe Complete! You win!");
+    victoryMessage.style.display = "block";
+    clearIntervals();
+  }
+}
 // Function to check the recipe
 function isRecipeComplete() {
   for (let ingredient in recipe) {
