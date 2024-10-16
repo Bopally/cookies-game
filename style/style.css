@@ -29,6 +29,7 @@ body {
   width: 80px;
   height: 80px;
   position: absolute;
+  transition: left 0.3s ease;
 }
 
 .obstacle {
