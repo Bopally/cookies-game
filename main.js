@@ -1,3 +1,5 @@
+let player;
+
 class Player {
   constructor() {
     this.width = 50;
@@ -5,6 +7,10 @@ class Player {
     this.positionX = 0;
     this.positionY = 0;
     this.domElement = null;
+    this.shieldElement = null;
+    this.shieldElement = null;
+    this.shieldActive = false; //shield
+    this.shieldRecharge = false; //shield
 
     this.createDomElement();
     this.addKeyboardControls();
@@ -21,6 +27,12 @@ class Player {
     this.domElement.style.bottom = this.positionY + "px";
     this.domElement.style.borderRadius = "50%";
     this.domElement.style.position = "absolute"; // set up the player position based on the board
+
+    // Create Shield Element
+    this.shieldElement = document.createElement("div");
+    this.shieldElement.id = "shield";
+    this.shieldElement.style.display = "none";
+    this.domElement.appendChild(this.shieldElement);
 
     //Append the dom
     board.appendChild(this.domElement);
@@ -41,14 +53,43 @@ class Player {
     }
   }
 
+  // Activate shield on space bar press, if not recharging
+  activateShield() {
+    if (!this.shieldRecharge && !this.shieldActive) {
+      // Check for space bar and recharge status
+      this.shieldActive = true;
+      this.shieldElement.style.display = "block";
+      this.shieldRecharge = true;
+      console.log("Shield activated!");
+
+      setTimeout(() => {
+        this.shieldActive = false;
+        this.shieldElement.style.display = "none";
+        console.log("Shield deactivated!");
+
+        // Start recharge timer
+        setTimeout(() => {
+          this.shieldRecharge = false;
+          console.log("Shield recharged!");
+        }, 10000); // 10 second recharge time
+      }, 3000); // Desactivate shield after 3 seconds
+    }
+  }
+
   addKeyboardControls() {
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") {
-        this.moveRight();
-      } else if (e.key === "ArrowLeft") {
-        this.moveLeft();
-      }
-    });
+    //delete all event listtener
+    document.removeEventListener("keydown", this.handleKeyPress);
+    document.addEventListener("keydown", this.handleKeyPress.bind(this));
+  }
+
+  handleKeyPress(e) {
+    if (e.key === "ArrowRight") {
+      this.moveRight();
+    } else if (e.key === "ArrowLeft") {
+      this.moveLeft();
+    } else if (e.key === " ") {
+      this.activateShield();
+    }
   }
 }
 
@@ -186,6 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function LifeCounter
 function updateHearts(lifeCounter) {
   const heartsContainer = document.getElementById("hearts");
+  console.log("..............................................................");
+  console.log(heartsContainer);
+  console.log("..............................................................");
+
   if (!heartsContainer) {
     console.error("Element #hearts not found in the DOM");
     return;
@@ -200,16 +245,32 @@ function updateHearts(lifeCounter) {
     heartsContainer.appendChild(heart);
   }
 }
+
+// Initialisation du jeu
+
+document.addEventListener("DOMContentLoaded", () => {
+  const startGameButton = document.getElementById("start-game-button");
+  const instructionsMessage = document.getElementById("instructions-message");
+
+  startGameButton.onclick = function () {
+    instructionsMessage.style.display = "none";
+    startGame();
+  };
+});
 // Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
-  let player = new Player();
+  if (player) {
+    player.domElement.remove();
+  }
+
+  player = new Player();
+  //let player = new Player();
   const obstacleArr = [];
   const ingredientArr = [];
   let timeLeft = 40;
 
   // Initialization of the Shield
-
   let shieldActive = false;
 
   // Initialization of the Shield recharge status
@@ -245,28 +306,6 @@ function startGame() {
     }
   }, 1000);
 
-  // Activate shield on space bar press, if not recharging
-  document.addEventListener("keydown", (e) => {
-    if (e.key === " " && !shieldRecharge) {
-      // Check for space bar and recharge status
-      if (!shieldActive) {
-        shieldActive = true;
-        shieldRecharge = true;
-        console.log("Shield activated!");
-        setTimeout(() => {
-          shieldActive = false;
-          console.log("Shield deactivated!");
-
-          // Start recharge timer
-          setTimeout(() => {
-            shieldRecharge = false;
-            console.log("Shield recharged!");
-          }, 10000); // 10 second recharge time
-        }, 3000); // Desactivate shield after 3 seconds
-      }
-    }
-  });
-
   // Obstacle: Interval
   const obstacleInterval = setInterval(() => {
     const newObstacle = new Obstacle(board);
@@ -284,7 +323,7 @@ function startGame() {
       obstacle.moveDown();
 
       // Check for collision
-      if (!shieldActive && isColliding(player, obstacle)) {
+      if (!player.shieldActive && isColliding(player, obstacle)) {
         console.log("Collision detected!");
         lifeCounter--;
         updateHearts(lifeCounter); // update our lifes counter
@@ -299,6 +338,7 @@ function startGame() {
       }
       if (obstacle.positionY <= -50) {
         obstacle.domElement.remove();
+        return;
       }
     });
 
@@ -318,7 +358,7 @@ function startGame() {
           // If the ingredient is not needed lose one life
           console.log(`Unnecessary ingredient collected: ${ingredient.type}`);
           lifeCounter--;
-          lifeCounterElement.textContent = `Lives: ${lifeCounter}`;
+          updateHearts(lifeCounter); // update our lifes counter
         }
 
         if (lifeCounter === 0) {

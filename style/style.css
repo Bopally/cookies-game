@@ -71,6 +71,17 @@ body {
   margin-right: 5px;
 }
 
+#shield {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-image: url("../Images/shield.png");
+  background-size: cover;
+  opacity: 0.6;
+  display: none;
+  pointer-events: none;
+}
+
 /* Instructions Style */
 #instructions {
   background: white;
