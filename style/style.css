@@ -151,7 +151,6 @@ body {
 }
 
 /* Instructions Style */
-
 #instructions-message {
   position: fixed;
   top: 50%;
@@ -160,14 +159,39 @@ body {
   color: rgb(221, 167, 112);
   background-color: rgb(127, 57, 18);
   opacity: 0.7;
-  padding: 100px;
-  border-radius: 50px;
+  padding: 80px;
+  margin-bottom: 0;
+  border-radius: 92% 92% 8% 8%;
   font-size: 20px;
   text-align: center;
   max-width: 600px;
   font-family: "Pacifico", cursive;
 }
 
+#start-game-button {
+  background-color: rgb(221, 167, 112);
+  color: rgb(127, 57, 18);
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-family: "Pacifico", cursive;
+}
+
+#instructions-message img {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
 /* Ingredients */
 .ingredient {
   position: absolute;
@@ -198,6 +222,8 @@ body {
 /* End Game Style */
 #game-over-message {
   display: none;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -209,6 +235,13 @@ body {
   padding: 20px;
   border-radius: 10px;
   font-family: "Pacifico", cursive;
+}
+
+#game-over-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  padding-top: 10px;
 }
 
 #victory-message {
@@ -243,4 +276,5 @@ body {
   font-family: "Pacifico", cursive;
   border-radius: 20px;
   background-color: rgb(221, 167, 112);
+  color: rgb(127, 57, 18);
 }
