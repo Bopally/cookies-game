@@ -1,5 +1,5 @@
 let player;
-
+// version
 class Player {
   constructor() {
     this.width = 50;
@@ -14,6 +14,7 @@ class Player {
 
     this.createDomElement();
     this.addKeyboardControls();
+    this.updateShieldIndicator();
   }
   createDomElement() {
     const board = document.getElementById("board");
@@ -61,6 +62,7 @@ class Player {
       this.shieldElement.style.display = "block";
       this.shieldRecharge = true;
       console.log("Shield activated!");
+      this.updateShieldIndicator();
 
       setTimeout(() => {
         this.shieldActive = false;
@@ -71,8 +73,23 @@ class Player {
         setTimeout(() => {
           this.shieldRecharge = false;
           console.log("Shield recharged!");
+          this.updateShieldIndicator();
         }, 10000); // 10 second recharge time
-      }, 3000); // Desactivate shield after 3 seconds
+      }, 5000); // Desactivate shield after 5 seconds
+    }
+  }
+
+  updateShieldIndicator() {
+    const shieldIndicator = document.getElementById("shield-indicator");
+    const shieldIcon = document.getElementById("shield-icon");
+    const shieldText = document.getElementById("shield-text");
+
+    if (this.shieldRecharge) {
+      shieldText.textContent = "Shield: Unavailable";
+      shieldIndicator.classList.add("unavailable");
+    } else {
+      shieldText.textContent = "Shield: Available";
+      shieldIndicator.classList.remove("unavailable");
     }
   }
 
