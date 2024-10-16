@@ -16,10 +16,11 @@ body {
 #board {
   height: 800px;
   width: 800px;
-  border: 10px solid rgb(127, 57, 18);
+  border: 8px double rgb(127, 57, 18);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
+  border-radius: 92% 92% 8% 8%;
 }
 
 #player {
