@@ -183,6 +183,23 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 });
 
+// Function LifeCounter
+function updateHearts(lifeCounter) {
+  const heartsContainer = document.getElementById("hearts");
+  if (!heartsContainer) {
+    console.error("Element #hearts not found in the DOM");
+    return;
+  }
+  console.log("Updating hearts, lifeCounter:", lifeCounter);
+  heartsContainer.innerHTML = ""; // Clear existing hearts
+
+  for (let i = 0; i < lifeCounter; i++) {
+    const heart = document.createElement("img");
+    heart.src = "./Images/heart.png";
+    heart.alt = "Life";
+    heartsContainer.appendChild(heart);
+  }
+}
 // Function to start the Cookie Game
 function startGame() {
   const board = document.getElementById("board");
@@ -202,7 +219,9 @@ function startGame() {
   let lifeCounter = 3;
 
   const lifeCounterElement = document.getElementById("life-counter");
-  lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
+  console.log("Starting game, initializing hearts.");
+  updateHearts(lifeCounter);
+  //lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
   const timeCounterElement = document.getElementById("time-counter");
   timeCounterElement.textContent = `Time: ${timeLeft}`;
@@ -268,10 +287,9 @@ function startGame() {
       if (!shieldActive && isColliding(player, obstacle)) {
         console.log("Collision detected!");
         lifeCounter--;
+        updateHearts(lifeCounter); // update our lifes counter
         obstacle.domElement.remove();
         obstacleArr.splice(index, 1);
-
-        lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
         if (lifeCounter === 0) {
           console.log("Game Over");
@@ -334,10 +352,6 @@ function startGame() {
   function resetGame() {
     gameOverMessage.style.display = "none";
     victoryMessage.style.display = "none";
-    timeLeft = 40;
-    lifeCounter = 3;
-    lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
-    timeCounterElement.textContent = `Time: ${timeLeft}`;
 
     obstacleArr.forEach((obstacle, index) => {
       obstacle.domElement.remove();
