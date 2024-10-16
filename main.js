@@ -244,15 +244,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function LifeCounter
 function updateHearts(lifeCounter) {
   const heartsContainer = document.getElementById("hearts");
-  console.log("..............................................................");
-  console.log(heartsContainer);
-  console.log("..............................................................");
-
   if (!heartsContainer) {
     console.error("Element #hearts not found in the DOM");
     return;
   }
-  console.log("Updating hearts, lifeCounter:", lifeCounter);
   heartsContainer.innerHTML = ""; // Clear existing hearts
 
   for (let i = 0; i < lifeCounter; i++) {
@@ -299,10 +294,14 @@ function startGame() {
   const lifeCounterElement = document.getElementById("life-counter");
   console.log("Starting game, initializing hearts.");
   updateHearts(lifeCounter);
-  //lifeCounterElement.textContent = `Lives : ${lifeCounter}`;
 
-  const timeCounterElement = document.getElementById("time-counter");
-  timeCounterElement.textContent = `Time: ${timeLeft}`;
+  const timeCounterElement = document.getElementById("timer-counter");
+  if (!timeCounterElement) {
+    // Vérifie que l'élément existe
+    console.error('Element with ID "timer-counter" not found in the DOM');
+    return;
+  }
+  timeCounterElement.textContent = timeLeft;
 
   const gameOverMessage = document.getElementById("game-over-message");
   const victoryMessage = document.getElementById("victory-message");
@@ -315,7 +314,7 @@ function startGame() {
   // Countdown timer
   const countdownInterval = setInterval(() => {
     timeLeft--;
-    timeCounterElement.textContent = `Time: ${timeLeft}`;
+    timeCounterElement.textContent = timeLeft;
     if (timeLeft <= 0) {
       console.log("Time's up!");
       gameOverMessage.style.display = "block";
