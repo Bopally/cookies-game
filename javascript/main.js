@@ -300,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // Function to start the Cookie Game
 function startGame() {
+  playBackgroundMusic();
   const board = document.getElementById("board");
   if (player) {
     player.domElement.remove();
@@ -417,6 +418,7 @@ function startGame() {
           victoryMessage.style.display = "block";
           clearIntervals();
           stopBackgroundMusic();
+          playVictorySound();
         }
       }
       if (ingredient.positionY <= -50) {

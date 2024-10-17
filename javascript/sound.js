@@ -19,10 +19,20 @@ function stopBackgroundMusic() {
 
 /// Music for Game Over///
 const gameOverSound = new Audio("../audio/game-over.wav");
-gameOverSound.volume = 1.5;
+gameOverSound.volume = 0.8;
 
 // Function to launch the sound
 function playGameOverSound() {
   gameOverSound.currentTime = 0;
   gameOverSound.play();
+}
+
+/// Music for Victory///
+const victorySound = new Audio("../audio/victory.wav");
+victorySound.volume = 0.3;
+
+// Function to launch the sound
+function playVictorySound() {
+  victorySound.currentTime = 0;
+  victorySound.play();
 }
