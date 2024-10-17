@@ -221,31 +221,7 @@ body {
 }
 
 /* End Game Style */
-#game-over-message {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
-  color: rgb(221, 167, 112);
-  text-align: center;
-  background-color: rgb(127, 57, 18);
-  padding: 20px;
-  border-radius: 10px;
-  font-family: "Pacifico", cursive;
-  opacity: 0.9;
-}
-
-#game-over-icon {
-  width: 60px;
-  height: 60px;
-  margin-right: 10px;
-  padding-top: 20px;
-}
-
+#game-over-message,
 #victory-message {
   display: none;
   align-items: center;
@@ -258,17 +234,19 @@ body {
   color: rgb(221, 167, 112);
   text-align: center;
   background-color: rgb(127, 57, 18);
-  padding: 20px;
+  padding: 25px;
+  padding-bottom: 35px;
   border-radius: 10px;
   font-family: "Pacifico", cursive;
   opacity: 0.9;
 }
 
+#game-over-icon,
 #victory-icon {
   width: 60px;
   height: 60px;
-  margin-right: 10px;
-  padding-top: 10px;
+  margin-bottom: -20px;
+  padding-top: 20px;
 }
 
 .start-again-button {

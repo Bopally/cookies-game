@@ -219,16 +219,6 @@ function updateRecipeDisplay() {
   });
 }
 
-/*recipeList.innerHTML = ""; // Clear the list
-
-  for (let ingredient in recipe) {
-    const remaining = recipe[ingredient] - collectedIngredients[ingredient];
-    const listItem = document.createElement("li");
-    listItem.textContent = `${ingredient}: ${Math.max(0, remaining)} left`;
-    recipeList.appendChild(listItem);
-  }
-}*/
-
 function collectIngredient(ingredient) {
   ingredient.domElement.remove();
   ingredientArr.splice(index, 1);
