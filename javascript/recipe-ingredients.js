@@ -61,7 +61,7 @@ function updateRecipeDisplay() {
       const listItem = document.createElement("li");
       listItem.className = "ingredient-recipe";
       const imgElement = document.createElement("img");
-      imgElement.src = `../Images/${ingredient}.png`;
+      imgElement.src = `./Images/${ingredient}.png`;
       imgElement.alt = ingredient;
       imgElement.className = "ingredient-img";
 
@@ -83,19 +83,16 @@ function collectIngredient(ingredient) {
     collectedIngredients[ingredient.type]++;
     updateRecipeDisplay();
   } else {
-    console.log(`Unnecessary ingredient collected: ${ingredient.type}`);
     lifeCounter--;
     updateHearts(lifeCounter);
   }
 
   if (lifeCounter === 0) {
-    console.log("Game Over");
     gameOverMessage.style.display = "block";
     clearIntervals();
   }
 
   if (isRecipeComplete()) {
-    console.log("Recipe Complete! You win!");
     victoryMessage.style.display = "block";
     clearIntervals();
   }
