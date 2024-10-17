@@ -3,7 +3,7 @@
 // Upload the music
 const backgroundMusic = new Audio("./audio/play-game.mp3");
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.3;
+backgroundMusic.volume = 0.2;
 
 // Function to launch the sound
 function playBackgroundMusic() {
@@ -19,7 +19,7 @@ function stopBackgroundMusic() {
 
 /// Music for Game Over ///
 const gameOverSound = new Audio("./audio/game-over.wav");
-gameOverSound.volume = 0.3;
+gameOverSound.volume = 0.2;
 
 // Function to launch the sound
 function playGameOverSound() {
@@ -29,7 +29,7 @@ function playGameOverSound() {
 
 /// Music for Victory ///
 const victorySound = new Audio("./audio/victory.wav");
-victorySound.volume = 0.3;
+victorySound.volume = 0.2;
 
 // Function to launch the sound
 function playVictorySound() {
