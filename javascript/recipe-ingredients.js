@@ -51,17 +51,28 @@ class Ingredient {
 // Function to update the recipe display
 function updateRecipeDisplay() {
   const recipeList = document.getElementById("recipe-list");
+  recipeList.innerHTML = "";
 
-  recipeList.querySelectorAll(".ingredient-recipe").forEach((item) => {
-    const ingredientType = item.getAttribute("data-ingredient");
-    const imgElement = item.querySelector(".ingredient-img");
+  for (let ingredient in recipe) {
+    const needed = recipe[ingredient];
+    const collected = collectedIngredients[ingredient];
 
-    if (collectedIngredients[ingredientType] >= recipe[ingredientType]) {
-      imgElement.classList.add("collected");
-    } else {
-      imgElement.classList.remove("collected");
+    for (let i = 0; i < needed; i++) {
+      const listItem = document.createElement("li");
+      listItem.className = "ingredient-recipe";
+      const imgElement = document.createElement("img");
+      imgElement.src = `../Images/${ingredient}.png`;
+      imgElement.alt = ingredient;
+      imgElement.className = "ingredient-img";
+
+      if (i < collected) {
+        imgElement.classList.add("collected");
+      }
+
+      listItem.appendChild(imgElement);
+      recipeList.appendChild(listItem);
     }
-  });
+  }
 }
 
 function collectIngredient(ingredient) {

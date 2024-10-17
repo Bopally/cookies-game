@@ -93,6 +93,8 @@ function createGameLoopInterval() {
         if (lifeCounter === 0) {
           gameOverMessage.style.display = "block";
           clearIntervals();
+          stopBackgroundMusic();
+          playGameOverSound();
         }
 
         if (isRecipeComplete()) {
