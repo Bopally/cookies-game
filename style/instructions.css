@@ -1,0 +1,42 @@
+/* Instructions Style */
+#instructions-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(221, 167, 112);
+  background-color: rgb(127, 57, 18);
+  opacity: 0.7;
+  padding: 80px;
+  padding-bottom: 0px;
+  border-radius: 92% 92% 8% 8%;
+  font-size: 20px;
+  text-align: center;
+  max-width: 600px;
+  font-family: "Pacifico", cursive;
+}
+
+#instructions-message img {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#start-game-button {
+  background-color: rgb(221, 167, 112);
+  color: rgb(127, 57, 18);
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-family: "Pacifico", cursive;
+}

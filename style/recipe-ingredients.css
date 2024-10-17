@@ -1,0 +1,56 @@
+/* Ingredients */
+.ingredient {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.ingredient.flour {
+  background-image: url("../Images/flour.png");
+  background-size: cover;
+}
+
+.ingredient.milk {
+  background-image: url("../Images/milk.png");
+  background-size: cover;
+}
+
+.ingredient.egg {
+  background-image: url("../Images/egg.png");
+  background-size: cover;
+}
+
+.ingredient.chocolate {
+  background-image: url("../Images/chocolate.png");
+  background-size: cover;
+}
+
+/* Recipe  */
+#recipe-display {
+  position: fixed;
+  top: 10px;
+  right: 100px;
+}
+
+#recipe-instructions {
+  font-size: 20px;
+  color: rgb(127, 57, 18);
+  margin-bottom: 10px;
+  font-family: "Pacifico", cursive;
+  text-align: center;
+}
+
+#recipe-list {
+  list-style-type: none;
+  padding: 10;
+  margin: 0;
+}
+.ingredient-img {
+  width: 50px;
+  height: 50px;
+  opacity: 0.3;
+}
+
+.collected {
+  opacity: 1;
+}

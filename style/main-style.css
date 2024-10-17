@@ -1,0 +1,78 @@
+/* Main Style */
+
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+body {
+  background-image: url(../Images/kitchen-backgroung.jpg);
+  background-size: auto;
+  background-position: center;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#board {
+  height: 750px;
+  width: 800px;
+  border: 8px double rgb(127, 57, 18);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  border-radius: 92% 92% 8% 8%;
+}
+
+#player {
+  background-image: url("../Images/cookie-player.png");
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  transition: left 0.3s ease;
+}
+
+.obstacle {
+  background-image: url("../Images/feu.png");
+  background-size: cover;
+}
+
+/* End Game Style */
+#game-over-message,
+#victory-message {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: rgb(221, 167, 112);
+  text-align: center;
+  background-color: rgb(127, 57, 18);
+  padding: 25px;
+  padding-bottom: 35px;
+  border-radius: 10px;
+  font-family: "Pacifico", cursive;
+  opacity: 0.9;
+}
+
+#game-over-icon,
+#victory-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: -20px;
+  padding-top: 20px;
+}
+
+.start-again-button {
+  margin-top: 15px;
+  padding: 15px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: "Pacifico", cursive;
+  border-radius: 20px;
+  background-color: rgb(221, 167, 112);
+  color: rgb(127, 57, 18);
+}

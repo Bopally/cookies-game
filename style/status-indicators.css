@@ -1,0 +1,83 @@
+/* Time Counter */
+#timer {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: rgb(127, 57, 18);
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+#timer-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+#time-counter {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+#time-text,
+#timer-counter {
+  font-family: "Pacifico", cursive;
+}
+
+/* Life Counter  */
+#hearts {
+  display: flex;
+  align-items: center;
+}
+
+#hearts img {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+
+#life-counter {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  margin-top: 20px;
+}
+
+/* Shield */
+#shield {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-image: url("../Images/shield.png");
+  background-size: cover;
+  opacity: 0.6;
+  display: none;
+  pointer-events: none;
+}
+
+#shield-indicator {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: green; /* shield available */
+  font-weight: bold;
+  margin-top: 50px;
+  font-family: "Pacifico", cursive;
+}
+
+#shield-indicator img {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+#shield-indicator.unavailable {
+  color: gray; /* shield availble */
+}
+
+#shield-indicator.unavailable img {
+  opacity: 0.3;
+}

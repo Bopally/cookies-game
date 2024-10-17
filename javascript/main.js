@@ -267,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
     instructionsMessage.style.display = "none";
     startGame();
   };
-  playBackgroundMusic();
 });
 
 // Function LifeCounter
