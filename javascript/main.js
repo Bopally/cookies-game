@@ -374,6 +374,7 @@ function startGame() {
         updateHearts(lifeCounter); // update our lifes counter
         obstacle.domElement.remove();
         obstacleArr.splice(index, 1);
+        playCollisionSound();
 
         if (lifeCounter === 0) {
           gameOverMessage.style.display = "block";
@@ -400,11 +401,13 @@ function startGame() {
         if (collectedIngredients[ingredient.type] < recipe[ingredient.type]) {
           collectedIngredients[ingredient.type]++;
           updateRecipeDisplay();
+          playcollectIngredientSound();
         } else {
           // If the ingredient is not needed lose one life
           console.log(`Unnecessary ingredient collected: ${ingredient.type}`);
           lifeCounter--;
           updateHearts(lifeCounter); // update our lifes counter
+          playCollisionSound();
         }
 
         if (lifeCounter === 0) {

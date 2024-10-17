@@ -1,9 +1,9 @@
 ///Music for Instruction and during the Game///
 
 // Upload the music
-const backgroundMusic = new Audio("../audio/play-game.mp3");
+const backgroundMusic = new Audio("./audio/play-game.mp3");
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.6;
+backgroundMusic.volume = 0.3;
 
 // Function to launch the sound
 function playBackgroundMusic() {
@@ -17,9 +17,9 @@ function stopBackgroundMusic() {
   backgroundMusic.currentTime = 0;
 }
 
-/// Music for Game Over///
-const gameOverSound = new Audio("../audio/game-over.wav");
-gameOverSound.volume = 0.8;
+/// Music for Game Over ///
+const gameOverSound = new Audio("./audio/game-over.wav");
+gameOverSound.volume = 0.3;
 
 // Function to launch the sound
 function playGameOverSound() {
@@ -27,12 +27,32 @@ function playGameOverSound() {
   gameOverSound.play();
 }
 
-/// Music for Victory///
-const victorySound = new Audio("../audio/victory.wav");
+/// Music for Victory ///
+const victorySound = new Audio("./audio/victory.wav");
 victorySound.volume = 0.3;
 
 // Function to launch the sound
 function playVictorySound() {
   victorySound.currentTime = 0;
   victorySound.play();
+}
+
+/// Music for Collision & wrong ingredients ///
+const collisionSound = new Audio("./audio/collision.mp3");
+collisionSound.volume = 1;
+
+// Function to launch the sound
+function playCollisionSound() {
+  collisionSound.currentTime = 0;
+  collisionSound.play();
+}
+
+/// Music for good ingredients ///
+const collectIngredientSound = new Audio("./audio/collect-ingredients.mp3");
+collectIngredientSound.volume = 1;
+
+// Function to launch the sound
+function playcollectIngredientSound() {
+  collectIngredientSound.currentTime = 0;
+  collectIngredientSound.play();
 }
