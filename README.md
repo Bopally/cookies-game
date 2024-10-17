@@ -4,9 +4,9 @@
 
 Cookie Game is an interactive web-based game, built using HTML, CSS, and JavaScript, where players navigate a cookie character to collect ingredients for a recipe while avoiding obstacles.
 
-![Cookie Game - Instruction Screenshot](./Images/Instructions%20Cookie-Game.png)
-![Cookie Game - Victory Screenshot](./Images/Victory%20Cookie-Game.png)
-![Cookie Game - Game Over Screenshot](./Images/Game-Over%20Cookie-Game.png)
+![Cookie_Game_Instruction](./Images/Instructions%20Cookie-Game.png)
+![Cookie_Game_Victory](./Images/Victory%20Cookie-Game.png)
+![Cookie_Game_Game Over](./Images/Game-Over%20Cookie-Game.png)
 
 ## How to play
 
