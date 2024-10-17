@@ -378,6 +378,7 @@ function startGame() {
           gameOverMessage.style.display = "block";
           clearIntervals();
           stopBackgroundMusic();
+          playGameOverSound();
         }
       }
       if (obstacle.positionY <= -50) {
