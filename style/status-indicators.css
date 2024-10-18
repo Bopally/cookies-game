@@ -30,6 +30,7 @@
 
 /* Life Counter  */
 #hearts {
+  height: 50px;
   display: flex;
   align-items: center;
 }
@@ -44,7 +45,6 @@
   position: fixed;
   top: 10px;
   left: 10px;
-  margin-top: 20px;
 }
 
 /* Shield */
@@ -65,7 +65,6 @@
   font-size: 20px;
   color: green; /* shield available */
   font-weight: bold;
-  margin-top: 50px;
   font-family: "Pacifico", cursive;
 }
 

@@ -6,7 +6,7 @@ body {
   background-image: url(../Images/kitchen-backgroung.jpg);
   background-size: auto;
   background-position: center;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   display: flex;
   justify-content: center;
